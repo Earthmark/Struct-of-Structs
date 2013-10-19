@@ -1,23 +1,20 @@
-﻿using SharpDX.DXGI;
+﻿using System.Runtime.InteropServices;
+using SharpDX.DXGI;
 using SharpDX.Direct3D11;
-using Buffer = SharpDX.Direct3D11.Buffer;
 using Device = SharpDX.Direct3D11.Device;
 
-namespace Struct_of_Structs.Visual
+namespace Struct_of_Structs.Visual.Models
 {
-	public class Model : Cleanup
+	public class Model<T> : Cleanup where T : struct, IVertex
 	{
 		private readonly int stride;
 		private readonly int indexCount;
 		private readonly Buffer indexBuffer;
 		private readonly Buffer vertexBuffer;
 
-		public Model(Device device)
+		public Model(Device device, int[] indicies, T[] verticies)
 		{
-			var indicies = new[] {0, 1, 2};
-			var verticies = new[] {new ColorVertex(), new ColorVertex(), new ColorVertex()};
-
-			stride = new ColorVertex().Size();
+			stride = Marshal.SizeOf(GetType().GenericTypeArguments[0]);
 			indexCount = indicies.Length;
 
 			vertexBuffer = Buffer.Create(device, BindFlags.VertexBuffer, verticies);

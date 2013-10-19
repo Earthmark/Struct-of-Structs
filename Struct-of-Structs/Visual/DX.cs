@@ -17,6 +17,8 @@ namespace Struct_of_Structs.Visual
 		private DepthStencilState depthStenState;
 		private DepthStencilView depthStenView;
 
+		private bool vSync;
+
 		public Device DXDevice { get; private set; }
 		public DeviceContext DXContext { get; private set; }
 
@@ -26,6 +28,7 @@ namespace Struct_of_Structs.Visual
 
 		public DX(int width, int height, float screenDepth, float screenNear, bool vSync, bool fullScreen, IntPtr hwnd)
 		{
+			this.vSync = vSync;
 			var factory = new Factory();
 			var adapter = factory.GetAdapter(0);
 			var monitor = adapter.Outputs[0];
@@ -156,6 +159,17 @@ namespace Struct_of_Structs.Visual
 			OnCleanup += renderTarget.Dispose;
 			OnCleanup += DXContext.Dispose;
 			OnCleanup += DXDevice.Dispose;
+		}
+
+		public void Begin(Color4 backColor)
+		{
+			DXContext.ClearDepthStencilView(depthStenView, DepthStencilClearFlags.Depth, 1, 0);
+			DXContext.ClearRenderTargetView(renderTarget, backColor);
+		}
+
+		public void End()
+		{
+			swapChain.Present(vSync ? 1 : 0, PresentFlags.None);
 		}
 	}
 }

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -70,7 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Input\Input.cs" />
+    <Compile Include="Control\Input.cs" />
     <Compile Include="Items\Inventory.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\Shield.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Utility\Cleanup.cs" />
     <Compile Include="Utility\Util.cs" />
     <Compile Include="Visual\IVertex.cs" />
-    <Compile Include="Visual\Model.cs" />
+    <Compile Include="Visual\Models\Model.cs" />
     <Compile Include="Visual\Shaders\Shader.cs" />
     <Compile Include="Visual\StdShaderBuffer.cs" />
   </ItemGroup>

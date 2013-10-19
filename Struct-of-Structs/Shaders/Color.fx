@@ -4,13 +4,13 @@ matrix projection;
 
 struct VertexInput
 {
-	float3 position : POSITION;
+	float4 position : POSITION;
 	float4 color : COLOR;
 };
 
 struct PixelInput
 {
-	float3 position : SV_POSITION;
+	float4 position : SV_POSITION;
 	float4 color : COLOR;
 };
 
@@ -25,7 +25,7 @@ PixelInput VertexShaderMethod(VertexInput input)
 	return output;
 }
 
-color4 PixelShaderMethod(PixelInput input) : SV_TARGET
+float4 PixelShaderMethod(PixelInput input) : SV_TARGET
 {
 	return input.color;
 }

@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Struct_of_Structs.Input
+namespace Struct_of_Structs.Control
 {
 	public sealed class Input : Cleanup
 	{
@@ -39,6 +39,10 @@ namespace Struct_of_Structs.Input
 		{
 			form.KeyUp += LinkFormOnKeyUp;
 			form.KeyDown += LinkFormOnKeyDown;
+			form.Disposed += (sender, args) =>
+			{
+				OnCleanup -= Unhook;
+			};
 		}
 
 		private void Unhook()

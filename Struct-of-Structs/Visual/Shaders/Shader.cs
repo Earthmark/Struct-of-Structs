@@ -19,7 +19,7 @@ namespace Struct_of_Structs.Visual.Shaders
 				vertShader = new VertexShader(device, bytecode);
 			}
 
-			using (var bytecode = ShaderBytecode.Compile(shaderString, pixelTraget, "vs_4_0"))
+			using (var bytecode = ShaderBytecode.Compile(shaderString, pixelTraget, "ps_4_0"))
 			{
 				pixShader = new PixelShader(device, bytecode);
 			}
