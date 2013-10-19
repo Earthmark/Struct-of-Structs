@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 
-namespace Struct_of_Structs
+namespace Struct_of_Structs.Items
 {
     class Sword : Item
     {

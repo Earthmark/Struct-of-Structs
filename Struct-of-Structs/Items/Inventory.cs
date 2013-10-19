@@ -4,15 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Struct_of_Structs
+namespace Struct_of_Structs.Items
 {
-    class Inventory<T> : List<Tuple<T, int>> where T : Item
+    class Inventory : List<Tuple<Item, int>>
     {
-        public int GetQuant(T t)
+        /// <summary>
+        /// add a list of items to the inventory, where the list is itself an inventory
+        /// of items T
+        /// </summary>
+        /// <typeparam name="T">Must be of type item</typeparam>
+        /// <param name="collection"></param>
+        public void AddRange<T>(IEnumerable<Tuple<T, int>> collection) where T : Item
+        {
+            foreach (var v in collection)
+            {
+                Add(new Tuple<Item, int>(v.Item1, v.Item2));
+            }
+        }
+
+        public int GetQuant(Item i)
         {
             foreach (var v in this)
             {
-                if (v.Item1 == t)
+                if (v.Item1 == i)
                 {
                     return v.Item2;
                 }
@@ -20,15 +34,15 @@ namespace Struct_of_Structs
             return -1;
         }
 
-        public Tuple<T, int> GetTuple(T t)
+        public Tuple<Item, int> GetTuple(Item i)
         {
-            if (t == null)
+            if (i == null)
             {
                 return null;
             }
             foreach (var v in this)
             {
-                if (v.Item1 == t)
+                if (v.Item1 == i)
                 {
                     return v;
                 }
@@ -41,23 +55,23 @@ namespace Struct_of_Structs
         //if quant is negative
         //TODO: keep order of items even after remove-then-add
 
-        public void AddItem(T t, int quant = 1)
+        public void AddItem(Item i, int quant = 1)
         {
             if (quant < 0)
             {
                 return;
             }
             
-            var tuple = GetTuple(t);
+            var tuple = GetTuple(i);
 
             if (tuple == null)
             {
-                Add(new Tuple<T, int>(t, quant));
+                Add(new Tuple<Item, int>(i, quant));
             }
             else
             {
                 Remove(tuple);
-                Add(new Tuple<T, int>(t, quant + tuple.Item2));
+                Add(new Tuple<Item, int>(i, quant + tuple.Item2));
             }
         }
 
@@ -71,14 +85,14 @@ namespace Struct_of_Structs
         //TODO: keep order of items even after remove-then-add
         //TODO: better error handling for quant > current quantity
 
-        public int RemoveItem(T t, int quant = 1)
+        public int RemoveItem(Item i, int quant = 1)
         {
             if (quant < 0)
             {
                 return -2;
             }
 
-            var tuple = GetTuple(t);
+            var tuple = GetTuple(i);
             int ret = 0;
 
             if (tuple == null)
@@ -97,20 +111,45 @@ namespace Struct_of_Structs
                 }
 
                 Remove(tuple);
-                Add(new Tuple<T, int>(t, ret));
+                Add(new Tuple<Item, int>(i, ret));
             }
 
             return ret;
         } //end of RemoveItem
 
-        public Inventory<U> GetItemsByType<U>() where U: Item
+        public Inventory GetItemsByType<T>() where T: Item
         {
-            var inv = new Inventory<U>();
-            inv.AddRange(this.OfType<Tuple<U, int>>());
+            var inv = new Inventory();
+            
+            inv.AddRange(this.Where(v => v.Item1 is T));
+
             return inv;
         }
 
+        public void Print()
+        {
+            string fmt = "{0, -20}{1,-5}{2, -15}";
+            Console.WriteLine(fmt, "name", "qty", "other");
+            foreach (var v in this)
+            {
+                string temp = "";
+                Item i = v.Item1;
 
+                if (i is Sword)
+                {
+                    temp = ((Sword)i).Power.ToString();
+                }
+                else if (i is Shield)
+                {
+                    temp = ((Shield)i).Defense.ToString();
+                }
+                else if (i is Potion)
+                {
+                    temp = ((Potion)i).Type.ToString();
+                }
 
+                Console.WriteLine(fmt, v.Item1.Name, v.Item2, temp);
+            }
+        }
     }
 }

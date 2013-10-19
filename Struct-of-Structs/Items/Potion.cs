@@ -24,9 +24,16 @@ namespace Struct_of_Structs.Items
             protected set;
         }
 
-        public Potion(string name, PotionType type = PotionType.None) : base(name)
+        public int Potency
+        {
+            get;
+            protected set;
+        }
+
+        public Potion(string name, int potency, PotionType type = PotionType.None) : base(name)
         {
             Type = type;
+            Potency = potency;
         }
     }
 }

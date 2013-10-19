@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Struct_of_Structs
+namespace Struct_of_Structs.Items
 {
     class Item
     {
