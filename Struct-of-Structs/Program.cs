@@ -15,4 +15,6 @@ namespace Struct_of_Structs
 			Environment.SetEnvironmentVariable("PATH", newPath);
 		}
 	}
+
+
 }
