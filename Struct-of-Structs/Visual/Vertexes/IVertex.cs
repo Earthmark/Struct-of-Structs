@@ -1,6 +1,6 @@
 ﻿using SharpDX.Direct3D11;
 
-namespace Struct_of_Structs.Visual
+namespace Struct_of_Structs.Visual.Vertexes
 {
 	public interface IVertex
 	{
