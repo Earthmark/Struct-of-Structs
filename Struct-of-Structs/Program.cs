@@ -10,7 +10,6 @@ namespace Struct_of_Structs
 {
 	class Program : Cleanup
 	{
-
 		private readonly RenderForm form;
 		private readonly Graphics graphics;
 		private readonly Input input;
@@ -33,10 +32,10 @@ namespace Struct_of_Structs
 			var newPath = Path.Combine(Environment.CurrentDirectory, Environment.Is64BitProcess ? "x64" : "x86") + ";" + Environment.GetEnvironmentVariable("PATH");
 			Environment.SetEnvironmentVariable("PATH", newPath);
 
-			//using(var program = new Program())
-			//{
-			//	program.Run();
-			//}
+			using(var program = new Program())
+			{
+				program.Run();
+			}
 		}
 
 		private Program()

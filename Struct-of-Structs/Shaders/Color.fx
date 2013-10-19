@@ -1,11 +1,16 @@
-﻿matrix world;
-matrix view;
-matrix projection;
+﻿cbuffer matrixBuffer
+{
+	matrix world;
+	matrix view;
+	matrix projection;
+}
 
 struct VertexInput
 {
-	float4 position : POSITION;
+	float3 localPos : POSITION0;
+	float3 globalPos : POSITION1;
 	float4 color : COLOR;
+	float size : PSIZE;
 };
 
 struct PixelInput
@@ -18,7 +23,9 @@ PixelInput VertexShaderMethod(VertexInput input)
 {
 	PixelInput output;
 
-	output.position = mul(mul(mul(input.position, world), view), projection);
+	input.localPos *= input.size;
+
+	output.position = mul(mul(mul(float4(input.localPos + input.globalPos, 1.0f), world), view), projection);
 
 	output.color = input.color;
 
