@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Struct_of_Structs.Items
 {
-    class Inventory : QuantList<Item>
+    class Inventory<T> : QuantList<T> where T: Item
     {
+        public Inventory() {}
+
+        public Inventory(IEnumerable<Tuple<T,int>> collection) : base(collection)
+        {}
+
         public void Print()
         {
             string fmt = "{0, -20}{1,-5}{2, -15}";
@@ -32,6 +37,11 @@ namespace Struct_of_Structs.Items
 
                 Console.WriteLine(fmt, v.Item1.Name, v.Item2, temp);
             }
+        }
+
+        new public Inventory<U> GetByType<U>() where U : class, T
+        {
+            return new Inventory<U>(from v in this where v.Item1 is U select new Tuple<U, int>((U)v.Item1, v.Item2));
         }
     }
 }

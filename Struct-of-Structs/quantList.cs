@@ -8,9 +8,9 @@ namespace Struct_of_Structs
 {
     class QuantList<T> : List<Tuple<T, int>> where T : class
     {
-        public QuantList() {}
+        protected QuantList() {}
 
-        public QuantList(IEnumerable<Tuple<T, int>> collection) : base(collection)
+        protected QuantList(IEnumerable<Tuple<T, int>> collection) : base(collection)
         {}
 
         public void AddRange<U>(IEnumerable<Tuple<T, int>> collection) where U : T
@@ -109,7 +109,7 @@ namespace Struct_of_Structs
             return ret;
         } //end of RemoveItem
 
-        public QuantList<U> GetItemsByType<U>() where U : class, T
+        public QuantList<U> GetByType<U>() where U : class, T
         {
             return new QuantList<U>(from v in this where v.Item1 is U select new Tuple<U, int>((U) v.Item1, v.Item2));
         }

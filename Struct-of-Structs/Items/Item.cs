@@ -23,24 +23,29 @@ namespace Struct_of_Structs.Items
             Name = name;
         }
 
-        public static bool operator ==(Item i1, Item i2)
+        public override bool Equals(object obj)
         {
             bool ret;
-
-            if ((object) i1 == null && (object) i2 == null)
-            {
-                ret = true;
-            }
-            else if ((object) i1 == null || (object) i2 == null)
+            if (!(obj is Item))
             {
                 ret = false;
             }
             else
             {
-                ret = i1.ID == i2.ID;
+                ret = (ID == ((Item) obj).ID);
             }
 
             return ret;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public static bool operator ==(Item i1, Item i2)
+        {
+            return (i1 == null) ? (i2 == null) : i1.Equals(i2);
         }
 
         public static bool operator !=(Item i1, Item i2)

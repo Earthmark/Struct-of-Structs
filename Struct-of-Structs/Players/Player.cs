@@ -57,17 +57,17 @@ namespace Struct_of_Structs.Players
             protected set;
         }
 
-        public Inventory Inventory
+        public Inventory<Item> Inventory
         {
             get;
             protected set;
         }
 
-        public Inventory TokenInventory
-        {
-            get;
-            protected set;
-        }
+        //public Inventory TokenInventory
+        //{
+        //    get;
+        //    protected set;
+        //}
 
         public Player(int level)
         {
