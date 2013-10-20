@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,22 @@ using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Windows;
 using Struct_of_Structs.Control;
+using Struct_of_Structs.Players;
 using Struct_of_Structs.Visual;
 
 namespace Struct_of_Structs
 {
-	class Program : Cleanup
+    internal enum ElementalTypes
+    {
+        Fire,
+        Water,
+        Wind,
+        Earth,
+        Ice,
+        Lightning
+    }
+
+    class Program : Cleanup
 	{
 		private readonly RenderForm form;
 		private readonly Graphics graphics;
@@ -37,7 +49,7 @@ namespace Struct_of_Structs
 			var newPath = Path.Combine(Environment.CurrentDirectory, Environment.Is64BitProcess ? "x64" : "x86") + ";" + Environment.GetEnvironmentVariable("PATH");
 			Environment.SetEnvironmentVariable("PATH", newPath);
 
-            TestInventory();
+            TestCharacters();
 
             //using(var program = new Program())
             //{
@@ -113,6 +125,30 @@ namespace Struct_of_Structs
             Console.WriteLine("Just the potions:");
             potions.Print();
             Console.ReadKey(true);
+        }
+
+        private static void TestCharacters()
+        {
+            List<Player> players = new List<Player>()
+            {
+                new Player(1),
+                new Player(1),
+                new Player(2),
+                new Player(2),
+                new Player(3),
+                new Player(3),
+                new Player(3),
+                new Player(4),
+                new Player(4),
+                new Player(4),
+            };
+
+            foreach (var v in players)
+            {
+                v.Print();
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 	}
 

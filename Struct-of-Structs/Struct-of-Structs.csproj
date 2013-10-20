@@ -79,6 +79,9 @@
     <Compile Include="Items\Sword.cs" />
     <Compile Include="Players\Player.cs" />
     <Compile Include="quantList.cs" />
+    <Compile Include="Spells\MasterSpellList.cs" />
+    <Compile Include="Spells\Spell.cs" />
+    <Compile Include="Spells\SpellList.cs" />
     <Compile Include="Visual\Camera.cs" />
     <Compile Include="Visual\SpriteManager.cs" />
     <Compile Include="Visual\Vertexes\InstanceVertex.cs" />
@@ -115,6 +118,7 @@
     <Content Include="Libs\SharpDX.RawInput.dll" />
     <Content Include="Libs\SharpDX.RawInput.xml" />
     <Content Include="Libs\SharpDX.xml" />
+    <Content Include="Spells\AllSpells.txt" />
     <Content Include="x64\d3dcompiler_46.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -134,9 +138,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Spells\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
